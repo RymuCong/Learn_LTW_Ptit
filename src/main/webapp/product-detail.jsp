@@ -53,6 +53,8 @@
     </style>
 </head>
 <body>
+<!-- Include Header -->
+<jsp:include page="header.jsp" />
 <div class="container">
     <div class="page-header mt-4">
         <h2 class="text-dark">PRODUCT DETAIL</h2>
