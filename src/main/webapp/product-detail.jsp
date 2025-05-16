@@ -91,7 +91,7 @@
                             <p><span class="attribute-label">Product ID:</span> ${product.id}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><span class="attribute-label">Category ID:</span> ${product.cid}</p>
+                            <p><span class="attribute-label">Category:</span> ${product.category.name}</p>
                         </div>
                     </div>
                 </div>

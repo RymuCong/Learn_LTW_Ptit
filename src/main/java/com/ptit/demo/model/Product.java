@@ -11,15 +11,13 @@ public class Product {
     private Date releaseDate;
     private String describe;
     private String image;
-    private Integer cid; // Foreign key to Category
+    private Category category; // Foreign key to Category
 
     // Default constructor
     public Product() {
     }
 
-    // Full constructor
-    public Product(String id, String name, Integer quantity, BigDecimal price,
-                   Date releaseDate, String describe, String image, Integer cid) {
+    public Product(String id, String name, Integer quantity, BigDecimal price, Date releaseDate, String describe, String image, Category category) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -27,7 +25,7 @@ public class Product {
         this.releaseDate = releaseDate;
         this.describe = describe;
         this.image = image;
-        this.cid = cid;
+        this.category = category;
     }
 
     // Getters and setters
@@ -87,12 +85,12 @@ public class Product {
         this.image = image;
     }
 
-    public Integer getCid() {
-        return cid;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
@@ -105,7 +103,6 @@ public class Product {
                 ", releaseDate=" + releaseDate +
                 ", describe='" + describe + '\'' +
                 ", image='" + image + '\'' +
-                ", cid=" + cid +
                 '}';
     }
 }

@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Left Sidebar -->
 <div class="left-sidebar">
-    <a href="#">iPhone</a>
-    <a href="#">Samsung</a>
-    <a href="#">Oppo</a>
-    <a href="#">Vsmart</a>
-    <a href="#">SS7</a>
+    <c:forEach var="category" items="${categories}">
+        <a href="category?cid=${category.id}">
+            <i class="fas fa-folder mr-2"></i> ${category.name}
+        </a>
+    </c:forEach>
 </div>
 
 <style>
@@ -23,5 +24,11 @@
     }
     .left-sidebar a:hover {
         color: #f0f0f0;
+        transform: translateX(5px);
+        transition: transform 0.3s ease;
+    }
+    .left-sidebar a.active {
+        font-weight: bold;
+        color: #ffff00;
     }
 </style>

@@ -1,5 +1,6 @@
 package com.ptit.demo.dal;
 
+import com.ptit.demo.model.Category;
 import com.ptit.demo.model.Product;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ProductDAO {
 
     private DBContext db;
+    private CategoryDAO categoryDao = new CategoryDAO();
 
     public ProductDAO() {
         db = new DBContext();
@@ -34,7 +36,8 @@ public class ProductDAO {
                 product.setReleaseDate(rs.getDate("releaseDate"));
                 product.setDescribe(rs.getString("describe"));
                 product.setImage(rs.getString("image"));
-                product.setCid(rs.getInt("cid"));
+                Category category = categoryDao.getById(rs.getInt("cid"));
+                product.setCategory(category);
                 list.add(product);
             }
         } catch (Exception e) {
@@ -61,7 +64,8 @@ public class ProductDAO {
                     product.setReleaseDate(rs.getDate("releaseDate"));
                     product.setDescribe(rs.getString("describe"));
                     product.setImage(rs.getString("image"));
-                    product.setCid(rs.getInt("cid"));
+                    Category category = categoryDao.getById(rs.getInt("cid"));
+                    product.setCategory(category);
                     return product;
                 }
             }
@@ -90,7 +94,8 @@ public class ProductDAO {
                     product.setReleaseDate(rs.getDate("releaseDate"));
                     product.setDescribe(rs.getString("describe"));
                     product.setImage(rs.getString("image"));
-                    product.setCid(rs.getInt("cid"));
+                    Category category = categoryDao.getById(rs.getInt("cid"));
+                    product.setCategory(category);
                     list.add(product);
                 }
             }
@@ -115,7 +120,12 @@ public class ProductDAO {
             ps.setDate(5, product.getReleaseDate() != null ? new Date(product.getReleaseDate().getTime()) : null);
             ps.setString(6, product.getDescribe());
             ps.setString(7, product.getImage());
-            ps.setObject(8, product.getCid());
+            Category category = product.getCategory();
+            if (category != null) {
+                ps.setObject(8, category.getId());
+            } else {
+                ps.setObject(8, null);
+            }
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -137,7 +147,12 @@ public class ProductDAO {
             ps.setDate(4, product.getReleaseDate() != null ? new Date(product.getReleaseDate().getTime()) : null);
             ps.setString(5, product.getDescribe());
             ps.setString(6, product.getImage());
-            ps.setObject(7, product.getCid());
+            Category category = product.getCategory();
+            if (category != null) {
+                ps.setObject(7, category.getId());
+            } else {
+                ps.setObject(7, null);
+            }
             ps.setString(8, product.getId());
 
             return ps.executeUpdate() > 0;

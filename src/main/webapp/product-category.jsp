@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>LIST OF PRODUCTS</title>
+    <title>Products by Category</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Font Awesome for icons -->
@@ -13,52 +13,10 @@
             background-color: #0066ff !important;
             padding: 10px 20px;
         }
-        .navbar-brand img {
-            width: 40px;
-            height: auto;
-        }
-        .nav-link {
-            color: white !important;
-            margin-right: 20px;
-        }
-        .search-box {
-            display: flex;
-            align-items: center;
-        }
-        .search-input {
-            border-radius: 4px 0 0 4px;
-            border: none;
-            padding: 6px 12px;
-        }
-        .search-button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            padding: 6px 12px;
-        }
-        .auth-buttons {
-            margin-left: 20px;
-        }
-        .auth-buttons a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
-        }
         .left-sidebar {
             background-color: #20b2aa;
             padding: 20px;
             min-height: calc(100vh - 70px);
-        }
-        .left-sidebar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px 0;
-            font-size: 18px;
-        }
-        .left-sidebar a:hover {
-            color: #f0f0f0;
         }
         .product-card {
             border: 1px solid #ddd;
@@ -102,6 +60,7 @@
             background-color: #add8e6;
             padding: 10px;
             margin-bottom: 20px;
+            border-radius: 5px;
         }
         body {
             background-color: #5f9ea0;
@@ -110,6 +69,12 @@
         }
         .main-content {
             margin-top: 20px;
+        }
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
         }
     </style>
 </head>
@@ -127,14 +92,29 @@
         <!-- Main Content -->
         <div class="col-md-10">
             <div class="main-content">
-                <div class="page-header">
-                    <h2 class="text-dark">LIST OF PRODUCTS</h2>
+                <div class="page-header d-flex justify-content-between align-items-center">
+                    <h2 class="text-dark mb-0">
+                        <c:if test="${not empty category}">
+                            <i class="fas fa-folder-open mr-2"></i> ${category.name}
+                        </c:if>
+                        <c:if test="${empty category}">
+                            <i class="fas fa-folder-open mr-2"></i> Category Products
+                        </c:if>
+                    </h2>
+                    <span class="badge badge-pill badge-primary">
+                        <c:if test="${not empty productsByCategory}">
+                            ${productsByCategory.size()} product(s)
+                        </c:if>
+                        <c:if test="${empty productsByCategory}">
+                            0 product
+                        </c:if>
+                    </span>
                 </div>
 
                 <div class="row">
                     <c:choose>
-                        <c:when test="${not empty products}">
-                            <c:forEach var="product" items="${products}">
+                        <c:when test="${not empty productsByCategory}">
+                            <c:forEach var="product" items="${productsByCategory}">
                                 <div class="col-md-4 mb-4">
                                     <div class="product-card position-relative">
                                         <div class="category-badge">
@@ -171,6 +151,12 @@
                             </div>
                         </c:otherwise>
                     </c:choose>
+                </div>
+
+                <div class="mt-4">
+                    <a href="product" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left mr-1"></i> Back to All Products
+                    </a>
                 </div>
             </div>
         </div>
